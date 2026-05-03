@@ -526,9 +526,8 @@ const Index = () => {
                 "Suporte contínuo",
                 "Hospedagem inclusa",
               ],
-              price: "R$ 450",
-              unit: "/ano",
-              alt: "ou R$ 59/mês",
+              precoAnual: "R$ 450",
+              precoMensal: "R$ 59",
               highlight: false,
             },
             {
@@ -543,9 +542,8 @@ const Index = () => {
                 "Suporte contínuo",
                 "Hospedagem inclusa",
               ],
-              price: "R$ 1.450",
-              unit: "/ano",
-              alt: "ou R$ 139/mês",
+              precoAnual: "R$ 1.450",
+              precoMensal: "R$ 139",
               highlight: true,
             },
             {
@@ -558,9 +556,8 @@ const Index = () => {
                 "Integrações avançadas",
                 "Escalável conforme sua necessidade",
               ],
-              price: "Sob consulta",
-              unit: "",
-              alt: "Conversa direta com o Walter",
+              precoAnual: "Sob consulta",
+              precoMensal: "",
               highlight: false,
             },
           ].map((p, i) => (
@@ -590,26 +587,51 @@ const Index = () => {
                   </li>
                 ))}
               </ul>
-              <div className={`border-t ${p.highlight ? "border-white/20" : "border-white/10"} pt-5 mb-5`}>
-                <div className="text-[11px] font-bold uppercase tracking-widest opacity-70 mb-1">Por apenas</div>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-3xl font-black">{p.price}</span>
-                  <span className="text-sm font-bold opacity-80">{p.unit}</span>
-                </div>
-                <div className={`text-xs mt-1 ${p.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>{p.alt}</div>
+              <div className={`border-t ${p.highlight ? "border-white/20" : "border-white/10"} pt-5 mb-2`}>
+                <div className="text-[11px] font-bold uppercase tracking-widest opacity-70 mb-3">Escolha e contrate</div>
+                {p.precoMensal ? (
+                  <div className="grid grid-cols-2 gap-2">
+                    <a
+                      href={waLink(`${mensagemPadrao} Quero o plano ${p.t} no valor anual de ${p.precoAnual}/ano.`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex flex-col items-center justify-center rounded-xl px-3 py-3 hover:scale-[1.03] transition-smooth ${
+                        p.highlight
+                          ? "bg-background text-foreground"
+                          : "bg-primary text-primary-foreground shadow-glow"
+                      }`}
+                    >
+                      <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Anual</span>
+                      <span className="text-lg font-black leading-tight">{p.precoAnual}</span>
+                      <span className="text-[10px] font-bold opacity-70">/ano</span>
+                    </a>
+                    <a
+                      href={waLink(`${mensagemPadrao} Quero o plano ${p.t} no valor mensal de ${p.precoMensal}/mês.`)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`flex flex-col items-center justify-center rounded-xl px-3 py-3 border-2 hover:scale-[1.03] transition-smooth ${
+                        p.highlight
+                          ? "border-background text-primary-foreground hover:bg-background hover:text-foreground"
+                          : "border-primary text-foreground hover:bg-primary hover:text-primary-foreground"
+                      }`}
+                    >
+                      <span className="text-[10px] font-black uppercase tracking-widest opacity-80">Mensal</span>
+                      <span className="text-lg font-black leading-tight">{p.precoMensal}</span>
+                      <span className="text-[10px] font-bold opacity-70">/mês</span>
+                    </a>
+                  </div>
+                ) : (
+                  <a
+                    href={waLink(`${mensagemPadrao} Quero o plano ${p.t}.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center justify-center rounded-xl px-3 py-4 bg-primary text-primary-foreground shadow-glow hover:scale-[1.03] transition-smooth"
+                  >
+                    <span className="text-base font-black leading-tight">{p.precoAnual}</span>
+                    <span className="text-[10px] font-bold opacity-80 mt-0.5">Falar com o Walter</span>
+                  </a>
+                )}
               </div>
-              <a
-                href={waLink(`${mensagemPadrao} Quero o plano ${p.t}.`)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`inline-flex items-center justify-center gap-2 font-black uppercase tracking-wide rounded-full px-5 py-3 text-xs hover:scale-[1.03] transition-smooth ${
-                  p.highlight
-                    ? "bg-background text-foreground"
-                    : "bg-primary text-primary-foreground shadow-glow"
-                }`}
-              >
-                Quero esse plano <ArrowRight className="w-4 h-4" strokeWidth={3} />
-              </a>
             </div>
           ))}
         </div>
