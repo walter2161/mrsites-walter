@@ -454,7 +454,49 @@ const Index = () => {
         </div>
       </Section>
 
-      {/* FOOTER */}
+      {/* EVENTOS — vanguarda da tecnologia */}
+      <Section id="eventos" className="bg-card/40 border-y border-white/5">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          <div className="relative order-2 md:order-1">
+            <div className="absolute inset-0 bg-gradient-glow scale-110" aria-hidden />
+            <img
+              src={walterHeroImg}
+              alt="Walter Araujo sendo entrevistado em evento de tecnologia e inovação digital"
+              className="relative w-full rounded-2xl shadow-card object-cover"
+              loading="lazy"
+              width={900}
+              height={900}
+            />
+            <div className="absolute -bottom-5 -right-5 bg-neon text-neon-foreground rounded-2xl px-5 py-3 shadow-glow rotate-[3deg]">
+              <div className="text-[10px] font-bold opacity-80 uppercase tracking-widest">Sempre na</div>
+              <div className="text-xl font-black leading-none uppercase">Vanguarda</div>
+            </div>
+          </div>
+          <div className="order-1 md:order-2">
+            <Eyebrow>Eventos & Bastidores</Eyebrow>
+            <h2 className="text-3xl md:text-5xl font-black leading-tight mb-6">
+              Sempre na <span className="text-primary">vanguarda da tecnologia</span>
+            </h2>
+            <p className="text-muted-foreground mb-6 leading-relaxed">
+              Participo dos principais <strong className="text-foreground">eventos de tecnologia, IA, marketing digital e inovação</strong> do Brasil e do mundo. É assim que o Mr. Sites entrega o que existe de mais novo em <strong className="text-foreground">criação de sites com IA</strong>, automação e SEO generativo — antes do mercado.
+            </p>
+            <ul className="space-y-2.5 mb-8">
+              {[
+                "Web Summit, RD Summit e Fire Festival",
+                "Eventos OpenAI, Google I/O e Meta Connect",
+                "Painéis e entrevistas sobre IA aplicada a vendas",
+                "Conexão direta com fundadores e early adopters",
+              ].map((it, i) => (
+                <li key={i} className="flex items-start gap-2.5 text-sm font-semibold">
+                  <CheckCircle2 className="w-4 h-4 shrink-0 text-neon mt-0.5" strokeWidth={3} />
+                  {it}
+                </li>
+              ))}
+            </ul>
+            <CTAGhost message={`${mensagemPadrao} Quero o que há de mais novo em IA pro meu site.`}>Quero tecnologia de ponta</CTAGhost>
+          </div>
+        </div>
+      </Section>
       <footer className="bg-background border-t border-white/5 py-10 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
