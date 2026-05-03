@@ -100,6 +100,7 @@ const Index = () => {
             <a href="#como" className="hover:text-primary transition-smooth">Como Funciona</a>
             <a href="#beneficios" className="hover:text-primary transition-smooth">Benefícios</a>
             <a href="#exemplos" className="hover:text-primary transition-smooth">Exemplos</a>
+            <a href="#valores" className="hover:text-primary transition-smooth">Valores</a>
             <a href="#faq" className="hover:text-primary transition-smooth">FAQ</a>
           </nav>
           <CTAPrimary size="sm" message={mensagemPadrao}>Quero meu site</CTAPrimary>
@@ -468,14 +469,14 @@ const Index = () => {
               height={900}
             />
             <div className="absolute -bottom-5 -right-5 bg-neon text-neon-foreground rounded-2xl px-5 py-3 shadow-glow rotate-[3deg]">
-              <div className="text-[10px] font-bold opacity-80 uppercase tracking-widest">Sempre na</div>
-              <div className="text-xl font-black leading-none uppercase">Vanguarda</div>
+              <div className="text-[10px] font-bold opacity-80 uppercase tracking-widest">Sempre</div>
+              <div className="text-xl font-black leading-none uppercase">Presente</div>
             </div>
           </div>
           <div className="order-1 md:order-2">
             <Eyebrow>Eventos & Bastidores</Eyebrow>
             <h2 className="text-3xl md:text-5xl font-black leading-tight mb-6">
-              Sempre na <span className="text-primary">vanguarda da tecnologia</span>
+              Sempre <span className="text-primary">presente na tecnologia</span>
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               Participo dos principais <strong className="text-foreground">eventos de tecnologia, IA, marketing digital e inovação</strong> do Brasil e do mundo. É assim que o Mr. Sites entrega o que existe de mais novo em <strong className="text-foreground">criação de sites com IA</strong>, automação e SEO generativo — antes do mercado.
@@ -497,6 +498,123 @@ const Index = () => {
           </div>
         </div>
       </Section>
+
+      {/* VALORES / PLANOS */}
+      <Section id="valores">
+        <div className="text-center mb-14">
+          <Eyebrow>Valores & Planos</Eyebrow>
+          <h2 className="text-3xl md:text-5xl font-black leading-tight">
+            Escolha o site <span className="text-primary">do tamanho do seu negócio</span>
+          </h2>
+          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+            Hospedagem, suporte e chat inteligente <strong className="text-foreground">já inclusos</strong>. Sem pegadinha, sem mensalidade escondida.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6">
+          {[
+            {
+              emoji: "💡",
+              t: "Site Inteligente",
+              sub: "Perfeito para quem quer marcar presença online de forma rápida e eficiente.",
+              feats: [
+                "Pronto em até 24h",
+                "1 página com até 7 seções",
+                "Chat inteligente integrado",
+                "Formulário de contato",
+                "Otimização SEO",
+                "Suporte contínuo",
+                "Hospedagem inclusa",
+              ],
+              price: "R$ 450",
+              unit: "/ano",
+              alt: "ou R$ 59/mês",
+              highlight: false,
+            },
+            {
+              emoji: "🚀",
+              t: "Site Institucional",
+              sub: "Ideal para empresas que precisam de uma presença mais completa e profissional.",
+              feats: [
+                "Até 4 páginas",
+                "Chat inteligente integrado",
+                "Formulário de contato",
+                "Otimização SEO",
+                "Suporte contínuo",
+                "Hospedagem inclusa",
+              ],
+              price: "R$ 1.450",
+              unit: "/ano",
+              alt: "ou R$ 139/mês",
+              highlight: true,
+            },
+            {
+              emoji: "⚙️",
+              t: "Site Personalizado",
+              sub: "Para projetos únicos, sob medida para o seu negócio.",
+              feats: [
+                "Layout exclusivo",
+                "Funcionalidades personalizadas",
+                "Integrações avançadas",
+                "Escalável conforme sua necessidade",
+              ],
+              price: "Sob consulta",
+              unit: "",
+              alt: "Conversa direta com o Walter",
+              highlight: false,
+            },
+          ].map((p, i) => (
+            <div
+              key={i}
+              className={`relative rounded-2xl p-7 flex flex-col ${
+                p.highlight
+                  ? "bg-primary text-primary-foreground border border-primary shadow-glow md:-translate-y-3"
+                  : "bg-card border border-white/10 hover:border-primary/40 transition-smooth"
+              }`}
+            >
+              {p.highlight && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-neon text-neon-foreground text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded-full">
+                  Mais escolhido
+                </div>
+              )}
+              <div className="text-3xl mb-3">{p.emoji}</div>
+              <h3 className="font-black text-xl mb-2">{p.t}</h3>
+              <p className={`text-sm mb-5 ${p.highlight ? "text-primary-foreground/90" : "text-muted-foreground"}`}>
+                {p.sub}
+              </p>
+              <ul className="space-y-2 mb-6 flex-1">
+                {p.feats.map((f, j) => (
+                  <li key={j} className="flex items-start gap-2 text-sm font-semibold">
+                    <CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${p.highlight ? "" : "text-neon"}`} strokeWidth={3} />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <div className={`border-t ${p.highlight ? "border-white/20" : "border-white/10"} pt-5 mb-5`}>
+                <div className="text-[11px] font-bold uppercase tracking-widest opacity-70 mb-1">Por apenas</div>
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-black">{p.price}</span>
+                  <span className="text-sm font-bold opacity-80">{p.unit}</span>
+                </div>
+                <div className={`text-xs mt-1 ${p.highlight ? "text-primary-foreground/80" : "text-muted-foreground"}`}>{p.alt}</div>
+              </div>
+              <a
+                href={waLink(`${mensagemPadrao} Quero o plano ${p.t}.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center justify-center gap-2 font-black uppercase tracking-wide rounded-full px-5 py-3 text-xs hover:scale-[1.03] transition-smooth ${
+                  p.highlight
+                    ? "bg-background text-foreground"
+                    : "bg-primary text-primary-foreground shadow-glow"
+                }`}
+              >
+                Quero esse plano <ArrowRight className="w-4 h-4" strokeWidth={3} />
+              </a>
+            </div>
+          ))}
+        </div>
+      </Section>
+
       <footer className="bg-background border-t border-white/5 py-10 px-4">
         <div className="container mx-auto max-w-6xl">
           <div className="grid md:grid-cols-3 gap-8 mb-8">
