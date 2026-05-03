@@ -3,6 +3,7 @@ import logo from "@/assets/mr-sites-logo.png";
 import walterImg from "@/assets/walter-portrait.jpg";
 import walterPhoneImg from "@/assets/walter-phone.jpg";
 import walterHeroImg from "@/assets/walter-hero.jpg";
+import walterLaptopImg from "@/assets/walter-laptop.png";
 import ExitIntentPopup from "@/components/ExitIntentPopup";
 
 const WALTER = {
@@ -145,11 +146,11 @@ const Index = () => {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-glow scale-110" aria-hidden />
               <img
-                src={walterHeroImg}
-                alt="Walter Araujo — Mr. Sites, especialista em criação de sites profissionais com chat IA"
-                className="relative w-full rounded-2xl shadow-card"
-                width={900}
-                height={900}
+                src={walterLaptopImg}
+                alt="Walter Araujo — Mr. Sites mostrando site com performance 96 no Google PageSpeed"
+                className="relative w-full drop-shadow-[0_25px_45px_hsl(225_100%_50%_/_0.35)]"
+                width={948}
+                height={996}
               />
               <div className="absolute -bottom-5 -left-5 bg-primary text-primary-foreground rounded-2xl px-5 py-3 shadow-glow rotate-[-4deg]">
                 <div className="text-xs font-bold opacity-90">Entrega</div>
