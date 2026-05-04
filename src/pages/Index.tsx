@@ -437,7 +437,7 @@ const Index = () => {
                 { from: "bot", text: "Claro! Já encaminhei seu contato pro consultor. Em até 1h ele te chama no WhatsApp ✅" },
               ],
             },
-          ].map((c, i) => (
+          ].map((c: { img: string; t: string; d: string; chat: ChatMsg[] }, i) => (
             <div key={i} className="group bg-card border border-white/5 rounded-2xl overflow-hidden hover:border-primary/40 hover:-translate-y-1 transition-smooth">
               <div
                 className="relative aspect-video overflow-hidden bg-black bg-no-repeat bg-[length:100%_auto] [background-position:center_top] [transition:background-position_12s_linear] group-hover:[background-position:center_bottom]"
