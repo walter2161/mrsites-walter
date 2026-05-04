@@ -1,4 +1,6 @@
-import { MessageCircle, Phone, CircleCheck as CheckCircle2, Globe, Bot, Rocket, Search, Clock, Shield, Zap, TrendingUp, Star, Mail, Instagram, Sparkles, MousePointerClick, BrainCircuit, ShoppingCart, BadgeCheck, ArrowRight, MapPin } from "lucide-react";
+import { MessageCircle, Phone, CircleCheck as CheckCircle2, Globe, Bot, Rocket, Search, Clock, Shield, Zap, TrendingUp, Star, Mail, Instagram, Sparkles, MousePointerClick, BrainCircuit, ShoppingCart, BadgeCheck, ArrowRight, MapPin, PlayCircle } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
 import logo from "@/assets/mr-sites-logo.png";
 import exemploClinica from "@/assets/exemplo-clinica-ia.png";
 import exemploDelivery from "@/assets/exemplo-delivery.png";
