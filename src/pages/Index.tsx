@@ -1,4 +1,6 @@
-import { MessageCircle, Phone, CircleCheck as CheckCircle2, Globe, Bot, Rocket, Search, Clock, Shield, Zap, TrendingUp, Star, Mail, Instagram, Sparkles, MousePointerClick, BrainCircuit, ShoppingCart, BadgeCheck, ArrowRight, MapPin } from "lucide-react";
+import { MessageCircle, Phone, CircleCheck as CheckCircle2, Globe, Bot, Rocket, Search, Clock, Shield, Zap, TrendingUp, Star, Mail, Instagram, Sparkles, MousePointerClick, BrainCircuit, ShoppingCart, BadgeCheck, ArrowRight, MapPin, PlayCircle } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
 import logo from "@/assets/mr-sites-logo.png";
 import exemploClinica from "@/assets/exemplo-clinica-ia.png";
 import exemploDelivery from "@/assets/exemplo-delivery.png";
@@ -66,6 +68,95 @@ const Eyebrow = ({ children }: { children: React.ReactNode }) => (
     {children}
   </div>
 );
+
+type ChatMsg = { from: "user" | "bot"; text: string };
+
+const ChatSimulationDialog = ({ title, niche, messages }: { title: string; niche: string; messages: ChatMsg[] }) => {
+  const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(0);
+  const [typing, setTyping] = useState(false);
+
+  useEffect(() => {
+    if (!open) {
+      setVisible(0);
+      setTyping(false);
+      return;
+    }
+    setVisible(0);
+    setTyping(false);
+    let i = 0;
+    let cancelled = false;
+    const tick = () => {
+      if (cancelled || i >= messages.length) return;
+      const isBot = messages[i].from === "bot";
+      const delay = isBot ? 900 : 600;
+      if (isBot) setTyping(true);
+      setTimeout(() => {
+        if (cancelled) return;
+        setTyping(false);
+        setVisible((v) => v + 1);
+        i++;
+        setTimeout(tick, 500);
+      }, delay);
+    };
+    const start = setTimeout(tick, 400);
+    return () => {
+      cancelled = true;
+      clearTimeout(start);
+    };
+  }, [open, messages]);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-3 py-2 text-xs font-black uppercase tracking-wide hover:scale-[1.04] transition-smooth shadow-glow"
+        >
+          <PlayCircle className="w-4 h-4" strokeWidth={2.5} />
+          Ver IA
+        </button>
+      </DialogTrigger>
+      <DialogContent className="max-w-md bg-card border-white/10 p-0 overflow-hidden">
+        <DialogHeader className="p-5 pb-3 border-b border-white/10 text-left">
+          <DialogTitle className="text-base font-black flex items-center gap-2">
+            <Bot className="w-4 h-4 text-primary" />
+            Atendimento IA — {title}
+          </DialogTitle>
+          <DialogDescription className="text-xs">{niche}</DialogDescription>
+        </DialogHeader>
+        <div className="p-5 space-y-3 text-sm max-h-[60vh] overflow-y-auto bg-background/40">
+          {messages.slice(0, visible).map((m, idx) => (
+            <div
+              key={idx}
+              className={`max-w-[85%] p-3 rounded-2xl animate-in fade-in slide-in-from-bottom-2 duration-300 ${
+                m.from === "user"
+                  ? "bg-muted rounded-tl-sm"
+                  : "bg-primary text-primary-foreground rounded-tr-sm ml-auto"
+              }`}
+            >
+              {m.text}
+            </div>
+          ))}
+          {typing && (
+            <div className="bg-primary/80 text-primary-foreground rounded-2xl rounded-tr-sm p-3 max-w-[60px] ml-auto">
+              <span className="inline-flex gap-1">
+                <span className="w-1.5 h-1.5 bg-primary-foreground rounded-full animate-bounce [animation-delay:-0.3s]" />
+                <span className="w-1.5 h-1.5 bg-primary-foreground rounded-full animate-bounce [animation-delay:-0.15s]" />
+                <span className="w-1.5 h-1.5 bg-primary-foreground rounded-full animate-bounce" />
+              </span>
+            </div>
+          )}
+          {visible >= messages.length && (
+            <div className="pt-2 text-center text-[11px] uppercase tracking-widest text-muted-foreground font-bold">
+              ✨ Conversa simulada · Sua IA pode fazer isso 24/7
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
 
 const Index = () => {
   const mensagemPadrao = "Olá Walter! Vi o site do Mr. Sites e quero criar meu site com chat inteligente.";
@@ -294,11 +385,59 @@ const Index = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { img: exemploClinica, t: "Sites com Agendamento IA", d: "Clínica Odontológica IA · Saúde com Inteligência Artificial" },
-            { img: exemploDelivery, t: "Cardápio Virtual Delivery", d: "Sabor Express · Pedidos online e cardápio digital" },
-            { img: exemploOratoria, t: "Landing Pages", d: "Curso de Oratória · Página de vendas de alta conversão" },
-            { img: exemploTerceirizacao, t: "Sites Institucionais", d: "Solução Terceirização · Presença profissional B2B" },
-          ].map((c, i) => (
+            {
+              img: exemploClinica,
+              t: "Sites com Agendamento IA",
+              d: "Clínica Odontológica IA · Saúde com Inteligência Artificial",
+              chat: [
+                { from: "user", text: "Oi, queria marcar uma limpeza." },
+                { from: "bot", text: "Olá! 😁 Que ótimo. Temos horários nesta semana. Prefere manhã ou tarde?" },
+                { from: "user", text: "Tarde, na quinta se possível." },
+                { from: "bot", text: "Perfeito! Quinta às 15h com a Dra. Larissa está livre. Confirmo no seu nome?" },
+                { from: "user", text: "Sim, pode confirmar!" },
+                { from: "bot", text: "Agendado ✅ Vou te enviar o lembrete no WhatsApp 1h antes. Até quinta!" },
+              ],
+            },
+            {
+              img: exemploDelivery,
+              t: "Cardápio Virtual Delivery",
+              d: "Sabor Express · Pedidos online e cardápio digital",
+              chat: [
+                { from: "user", text: "Boa noite! O que vocês têm de promoção hoje?" },
+                { from: "bot", text: "Boa noite! 🍔 Hoje o combo Express (burger + fritas + refri) sai por R$ 29,90." },
+                { from: "user", text: "Quero 2 combos. Entregam no Jardim Europa?" },
+                { from: "bot", text: "Entregamos sim! Frete R$ 6 e chega em ~35 min. Confirma o pedido?" },
+                { from: "user", text: "Confirmo, pix." },
+                { from: "bot", text: "Pedido #482 confirmado ✅ Enviei o QR Code do Pix no chat. Bom apetite!" },
+              ],
+            },
+            {
+              img: exemploOratoria,
+              t: "Landing Pages",
+              d: "Curso de Oratória · Página de vendas de alta conversão",
+              chat: [
+                { from: "user", text: "O curso serve pra quem trava em apresentações?" },
+                { from: "bot", text: "Serve sim! 🎤 O método é justamente pra destravar e ganhar confiança no palco." },
+                { from: "user", text: "Quanto custa e quando começa?" },
+                { from: "bot", text: "12x R$ 97 ou R$ 970 à vista. Próxima turma começa segunda-feira." },
+                { from: "user", text: "Tem garantia?" },
+                { from: "bot", text: "Sim, 7 dias de garantia incondicional. Quer que eu te envie o link de inscrição?" },
+              ],
+            },
+            {
+              img: exemploTerceirizacao,
+              t: "Sites Institucionais",
+              d: "Solução Terceirização · Presença profissional B2B",
+              chat: [
+                { from: "user", text: "Vocês fazem terceirização de portaria pra condomínio?" },
+                { from: "bot", text: "Fazemos sim! 🏢 Atendemos condomínios residenciais e comerciais em toda Grande SP." },
+                { from: "user", text: "Como funciona o orçamento?" },
+                { from: "bot", text: "Fazemos uma visita técnica gratuita e enviamos a proposta em 48h." },
+                { from: "user", text: "Pode agendar a visita?" },
+                { from: "bot", text: "Claro! Já encaminhei seu contato pro consultor. Em até 1h ele te chama no WhatsApp ✅" },
+              ],
+            },
+          ].map((c: { img: string; t: string; d: string; chat: ChatMsg[] }, i) => (
             <div key={i} className="group bg-card border border-white/5 rounded-2xl overflow-hidden hover:border-primary/40 hover:-translate-y-1 transition-smooth">
               <div
                 className="relative aspect-video overflow-hidden bg-black bg-no-repeat bg-[length:100%_auto] [background-position:center_top] [transition:background-position_12s_linear] group-hover:[background-position:center_bottom]"
@@ -308,9 +447,12 @@ const Index = () => {
               >
                 <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
               </div>
-              <div className="p-5">
-                <h3 className="font-black text-lg mb-1">{c.t}</h3>
-                <p className="text-sm text-muted-foreground">{c.d}</p>
+              <div className="p-5 flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-black text-lg mb-1">{c.t}</h3>
+                  <p className="text-sm text-muted-foreground">{c.d}</p>
+                </div>
+                <ChatSimulationDialog title={c.t} niche={c.d} messages={c.chat} />
               </div>
             </div>
           ))}
