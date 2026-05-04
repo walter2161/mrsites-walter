@@ -69,6 +69,95 @@ const Eyebrow = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
+type ChatMsg = { from: "user" | "bot"; text: string };
+
+const ChatSimulationDialog = ({ title, niche, messages }: { title: string; niche: string; messages: ChatMsg[] }) => {
+  const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState(0);
+  const [typing, setTyping] = useState(false);
+
+  useEffect(() => {
+    if (!open) {
+      setVisible(0);
+      setTyping(false);
+      return;
+    }
+    setVisible(0);
+    setTyping(false);
+    let i = 0;
+    let cancelled = false;
+    const tick = () => {
+      if (cancelled || i >= messages.length) return;
+      const isBot = messages[i].from === "bot";
+      const delay = isBot ? 900 : 600;
+      if (isBot) setTyping(true);
+      setTimeout(() => {
+        if (cancelled) return;
+        setTyping(false);
+        setVisible((v) => v + 1);
+        i++;
+        setTimeout(tick, 500);
+      }, delay);
+    };
+    const start = setTimeout(tick, 400);
+    return () => {
+      cancelled = true;
+      clearTimeout(start);
+    };
+  }, [open, messages]);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button
+          type="button"
+          className="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-primary text-primary-foreground px-3 py-2 text-xs font-black uppercase tracking-wide hover:scale-[1.04] transition-smooth shadow-glow"
+        >
+          <PlayCircle className="w-4 h-4" strokeWidth={2.5} />
+          Ver IA
+        </button>
+      </DialogTrigger>
+      <DialogContent className="max-w-md bg-card border-white/10 p-0 overflow-hidden">
+        <DialogHeader className="p-5 pb-3 border-b border-white/10 text-left">
+          <DialogTitle className="text-base font-black flex items-center gap-2">
+            <Bot className="w-4 h-4 text-primary" />
+            Atendimento IA — {title}
+          </DialogTitle>
+          <DialogDescription className="text-xs">{niche}</DialogDescription>
+        </DialogHeader>
+        <div className="p-5 space-y-3 text-sm max-h-[60vh] overflow-y-auto bg-background/40">
+          {messages.slice(0, visible).map((m, idx) => (
+            <div
+              key={idx}
+              className={`max-w-[85%] p-3 rounded-2xl animate-in fade-in slide-in-from-bottom-2 duration-300 ${
+                m.from === "user"
+                  ? "bg-muted rounded-tl-sm"
+                  : "bg-primary text-primary-foreground rounded-tr-sm ml-auto"
+              }`}
+            >
+              {m.text}
+            </div>
+          ))}
+          {typing && (
+            <div className="bg-primary/80 text-primary-foreground rounded-2xl rounded-tr-sm p-3 max-w-[60px] ml-auto">
+              <span className="inline-flex gap-1">
+                <span className="w-1.5 h-1.5 bg-primary-foreground rounded-full animate-bounce [animation-delay:-0.3s]" />
+                <span className="w-1.5 h-1.5 bg-primary-foreground rounded-full animate-bounce [animation-delay:-0.15s]" />
+                <span className="w-1.5 h-1.5 bg-primary-foreground rounded-full animate-bounce" />
+              </span>
+            </div>
+          )}
+          {visible >= messages.length && (
+            <div className="pt-2 text-center text-[11px] uppercase tracking-widest text-muted-foreground font-bold">
+              ✨ Conversa simulada · Sua IA pode fazer isso 24/7
+            </div>
+          )}
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 const Index = () => {
   const mensagemPadrao = "Olá Walter! Vi o site do Mr. Sites e quero criar meu site com chat inteligente.";
 
