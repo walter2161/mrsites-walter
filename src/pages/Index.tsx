@@ -294,20 +294,19 @@ const Index = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { img: exemploClinica, t: "Clínica Odontológica IA", d: "Saúde · Agendamento com Inteligência Artificial" },
-            { img: exemploDelivery, t: "Sabor Express", d: "Delivery · Cardápio digital e pedidos online" },
-            { img: exemploOratoria, t: "Curso de Oratória", d: "Educação · Página de vendas de curso online" },
-            { img: exemploTerceirizacao, t: "Solução Terceirização", d: "Serviços · Site institucional B2B" },
+            { img: exemploClinica, t: "Sites com Agendamento IA", d: "Clínica Odontológica IA · Saúde com Inteligência Artificial" },
+            { img: exemploDelivery, t: "Cardápio Virtual Delivery", d: "Sabor Express · Pedidos online e cardápio digital" },
+            { img: exemploOratoria, t: "Landing Pages", d: "Curso de Oratória · Página de vendas de alta conversão" },
+            { img: exemploTerceirizacao, t: "Sites Institucionais", d: "Solução Terceirização · Presença profissional B2B" },
           ].map((c, i) => (
             <div key={i} className="group bg-card border border-white/5 rounded-2xl overflow-hidden hover:border-primary/40 hover:-translate-y-1 transition-smooth">
-              <div className="relative aspect-video overflow-hidden bg-black">
-                <img
-                  src={c.img}
-                  alt={`Mockup do site ${c.t}`}
-                  loading="lazy"
-                  className="absolute top-0 left-0 w-full h-auto transition-transform duration-[6000ms] ease-linear group-hover:-translate-y-[calc(100%-100%*9/16)]"
-                />
-                <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-none" />
+              <div
+                className="relative aspect-video overflow-hidden bg-black bg-no-repeat bg-[length:100%_auto] [background-position:center_top] [transition:background-position_12s_linear] group-hover:[background-position:center_bottom]"
+                style={{ backgroundImage: `url(${c.img})` }}
+                role="img"
+                aria-label={`Mockup do site ${c.t}`}
+              >
+                <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
               </div>
               <div className="p-5">
                 <h3 className="font-black text-lg mb-1">{c.t}</h3>
