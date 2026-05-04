@@ -1,5 +1,9 @@
 import { MessageCircle, Phone, CircleCheck as CheckCircle2, Globe, Bot, Rocket, Search, Clock, Shield, Zap, TrendingUp, Star, Mail, Instagram, Sparkles, MousePointerClick, BrainCircuit, ShoppingCart, BadgeCheck, ArrowRight, MapPin } from "lucide-react";
 import logo from "@/assets/mr-sites-logo.png";
+import exemploClinica from "@/assets/exemplo-clinica-ia.png";
+import exemploDelivery from "@/assets/exemplo-delivery.png";
+import exemploOratoria from "@/assets/exemplo-oratoria.png";
+import exemploTerceirizacao from "@/assets/exemplo-terceirizacao.png";
 import walterImg from "@/assets/walter-portrait.jpg";
 import walterPhoneImg from "@/assets/walter-phone.jpg";
 import walterHeroImg from "@/assets/walter-hero.jpg";
@@ -288,19 +292,27 @@ const Index = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid md:grid-cols-2 gap-6">
           {[
-            { icon: Globe, t: "Site Institucional", d: "Sua empresa profissional na internet" },
-            { icon: MousePointerClick, t: "Landing Page", d: "Página de vendas que converte" },
-            { icon: ShoppingCart, t: "E-commerce", d: "Loja virtual completa com Pix" },
-            { icon: Bot, t: "Site com Chat IA", d: "Atendente virtual que fecha venda" },
+            { img: exemploClinica, t: "Clínica Odontológica IA", d: "Saúde · Agendamento com Inteligência Artificial" },
+            { img: exemploDelivery, t: "Sabor Express", d: "Delivery · Cardápio digital e pedidos online" },
+            { img: exemploOratoria, t: "Curso de Oratória", d: "Educação · Página de vendas de curso online" },
+            { img: exemploTerceirizacao, t: "Solução Terceirização", d: "Serviços · Site institucional B2B" },
           ].map((c, i) => (
-            <div key={i} className="bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/40 hover:-translate-y-1 transition-smooth">
-              <div className="w-11 h-11 rounded-xl bg-primary/15 border border-primary/30 flex items-center justify-center mb-4">
-                <c.icon className="w-5 h-5 text-primary" strokeWidth={2.5} />
+            <div key={i} className="group bg-card border border-white/5 rounded-2xl overflow-hidden hover:border-primary/40 hover:-translate-y-1 transition-smooth">
+              <div className="relative aspect-video overflow-hidden bg-black">
+                <img
+                  src={c.img}
+                  alt={`Mockup do site ${c.t}`}
+                  loading="lazy"
+                  className="absolute top-0 left-0 w-full h-auto transition-transform duration-[6000ms] ease-linear group-hover:-translate-y-[calc(100%-100%*9/16)]"
+                />
+                <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-none" />
               </div>
-              <h3 className="font-black text-lg mb-1.5">{c.t}</h3>
-              <p className="text-sm text-muted-foreground">{c.d}</p>
+              <div className="p-5">
+                <h3 className="font-black text-lg mb-1">{c.t}</h3>
+                <p className="text-sm text-muted-foreground">{c.d}</p>
+              </div>
             </div>
           ))}
         </div>
