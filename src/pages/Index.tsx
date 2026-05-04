@@ -296,10 +296,58 @@ const Index = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           {[
-            { img: exemploClinica, t: "Sites com Agendamento IA", d: "Clínica Odontológica IA · Saúde com Inteligência Artificial" },
-            { img: exemploDelivery, t: "Cardápio Virtual Delivery", d: "Sabor Express · Pedidos online e cardápio digital" },
-            { img: exemploOratoria, t: "Landing Pages", d: "Curso de Oratória · Página de vendas de alta conversão" },
-            { img: exemploTerceirizacao, t: "Sites Institucionais", d: "Solução Terceirização · Presença profissional B2B" },
+            {
+              img: exemploClinica,
+              t: "Sites com Agendamento IA",
+              d: "Clínica Odontológica IA · Saúde com Inteligência Artificial",
+              chat: [
+                { from: "user", text: "Oi, queria marcar uma limpeza." },
+                { from: "bot", text: "Olá! 😁 Que ótimo. Temos horários nesta semana. Prefere manhã ou tarde?" },
+                { from: "user", text: "Tarde, na quinta se possível." },
+                { from: "bot", text: "Perfeito! Quinta às 15h com a Dra. Larissa está livre. Confirmo no seu nome?" },
+                { from: "user", text: "Sim, pode confirmar!" },
+                { from: "bot", text: "Agendado ✅ Vou te enviar o lembrete no WhatsApp 1h antes. Até quinta!" },
+              ],
+            },
+            {
+              img: exemploDelivery,
+              t: "Cardápio Virtual Delivery",
+              d: "Sabor Express · Pedidos online e cardápio digital",
+              chat: [
+                { from: "user", text: "Boa noite! O que vocês têm de promoção hoje?" },
+                { from: "bot", text: "Boa noite! 🍔 Hoje o combo Express (burger + fritas + refri) sai por R$ 29,90." },
+                { from: "user", text: "Quero 2 combos. Entregam no Jardim Europa?" },
+                { from: "bot", text: "Entregamos sim! Frete R$ 6 e chega em ~35 min. Confirma o pedido?" },
+                { from: "user", text: "Confirmo, pix." },
+                { from: "bot", text: "Pedido #482 confirmado ✅ Enviei o QR Code do Pix no chat. Bom apetite!" },
+              ],
+            },
+            {
+              img: exemploOratoria,
+              t: "Landing Pages",
+              d: "Curso de Oratória · Página de vendas de alta conversão",
+              chat: [
+                { from: "user", text: "O curso serve pra quem trava em apresentações?" },
+                { from: "bot", text: "Serve sim! 🎤 O método é justamente pra destravar e ganhar confiança no palco." },
+                { from: "user", text: "Quanto custa e quando começa?" },
+                { from: "bot", text: "12x R$ 97 ou R$ 970 à vista. Próxima turma começa segunda-feira." },
+                { from: "user", text: "Tem garantia?" },
+                { from: "bot", text: "Sim, 7 dias de garantia incondicional. Quer que eu te envie o link de inscrição?" },
+              ],
+            },
+            {
+              img: exemploTerceirizacao,
+              t: "Sites Institucionais",
+              d: "Solução Terceirização · Presença profissional B2B",
+              chat: [
+                { from: "user", text: "Vocês fazem terceirização de portaria pra condomínio?" },
+                { from: "bot", text: "Fazemos sim! 🏢 Atendemos condomínios residenciais e comerciais em toda Grande SP." },
+                { from: "user", text: "Como funciona o orçamento?" },
+                { from: "bot", text: "Fazemos uma visita técnica gratuita e enviamos a proposta em 48h." },
+                { from: "user", text: "Pode agendar a visita?" },
+                { from: "bot", text: "Claro! Já encaminhei seu contato pro consultor. Em até 1h ele te chama no WhatsApp ✅" },
+              ],
+            },
           ].map((c, i) => (
             <div key={i} className="group bg-card border border-white/5 rounded-2xl overflow-hidden hover:border-primary/40 hover:-translate-y-1 transition-smooth">
               <div
@@ -310,9 +358,12 @@ const Index = () => {
               >
                 <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10" />
               </div>
-              <div className="p-5">
-                <h3 className="font-black text-lg mb-1">{c.t}</h3>
-                <p className="text-sm text-muted-foreground">{c.d}</p>
+              <div className="p-5 flex items-start justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-black text-lg mb-1">{c.t}</h3>
+                  <p className="text-sm text-muted-foreground">{c.d}</p>
+                </div>
+                <ChatSimulationDialog title={c.t} niche={c.d} messages={c.chat} />
               </div>
             </div>
           ))}
